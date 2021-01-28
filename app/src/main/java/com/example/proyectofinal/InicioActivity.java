@@ -159,6 +159,10 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         startActivity(i);
     }
 
+    public void refresh(View v){
+        buscaLocales();
+    }
+
     /*public void refresh(View v){
         String resultadoLocales = "";
         Vector<String> resultado = db.buscarLocales(cityStr);
@@ -170,7 +174,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
     }
 */
     public void abrirCDMX(View v){
-        /*Intent i = new Intent(this, ciudadGeneralActivity.class);
+        /*==Intent i = new Intent(this, ciudadGeneralActivity.class);
         i.putExtra("city", "CDMX");
         startActivity(i);*/
         Log.wtf("CIUDADBTN",cityUser);

@@ -89,6 +89,7 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
     }
 
     public void agregarLocal(View v){
+        finish();
         Intent i = new Intent(this, AgregarActivity.class);
         startActivity(i);
     }
