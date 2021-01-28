@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -89,10 +90,45 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
     }
 
     public void agregarLocal(View v){
-        finish();
+        //finish();
         Intent i = new Intent(this, AgregarActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 1);
     }
+
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                // A contact was picked.  Here we will just display it
+                // to the user.
+                onBackPressed();
+
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        startActivity(new Intent(UserpointsActivity.this, InicioActivity.class));
+        finish();
+    }
+
+/*
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Your desired class
+                startActivity(new Intent(UserpointsActivity.this, InicioActivity.class));
+                break;
+        }
+        return true;
+    }
+
+ */
+
 
     private void tostito(){
         handler = new Handler(Looper.getMainLooper(), this);

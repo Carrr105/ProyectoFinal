@@ -37,10 +37,11 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
     private LocalesDetailActivity local;
     private String cityUser, uID;
     private Handler handler;
-    private TextView saludo;
+    private TextView saludo, infoCiudad;
     //private DBHelper db;
     private TextView locales;
     private String cityStr = "";
+    private String current = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +52,12 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         FirebaseUser user = auth.getInstance().getCurrentUser();
 
         saludo = findViewById(R.id.saludo);
+        infoCiudad = findViewById(R.id.infoCiudad);
         String resultadoLocales = "";
         saludo.setText("Hola, "+ user.getDisplayName().substring(0,1).toUpperCase() +
                 user.getDisplayName().substring(1,user.getDisplayName().length()));
+
+
 
         FirebaseDatabase db =FirebaseDatabase.getInstance();
         ref = db.getReference();
@@ -75,6 +79,8 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
                     cityUser = dataSnapshot.child("city").getValue(String.class);
                     Log.wtf("CIUDADFUNC",cityUser);
                 }
+                infoCiudad.setText("Mostrando lugares en " + cityUser);
+                current = cityUser;
             }
 
             @Override
@@ -152,6 +158,9 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         });
 
         if (ciudad != "All") {
+            if (ciudad != cityUser) {
+                infoCiudad.setText("Mostrando lugares en " + ciudad);
+            }
             ref.child("lugares").orderByChild("ciudad").
                     equalTo(ciudad).addChildEventListener(new ChildEventListener() {
 
@@ -183,6 +192,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
             });
         }
         else{
+            infoCiudad.setText("Mostrando todos los lugares");
             ref.child("lugares").orderByChild("ciudad").addChildEventListener(new ChildEventListener() {
 
                 public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
@@ -238,27 +248,52 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
     }
 
     public void refresh(View v){
-        buscaLocales();
+        if (current == "cityUser"){
+            buscaLocales();
+        }
+        else if (current == "CDMX"){
+            buscaLocalesCiudad("CDMX");
+        }
+        else if (current == "Monterrey"){
+            buscaLocalesCiudad("Monterrey");
+        }
+        else if (current == "Guadalajara"){
+            buscaLocalesCiudad("Guadalajara");
+        }
+        else if (current == "Toluca"){
+            buscaLocalesCiudad("Toluca");
+        }
+        else if (current == "All"){
+            buscaLocalesCiudad("All");
+        }
     }
 
     public void abrirCDMX(View v){
         buscaLocalesCiudad("CDMX");
+        current = "CDMX";
     }
 
     public void abrirGDL(View v){
         buscaLocalesCiudad("Guadalajara");
+        current = "Guadalajara";
+
     }
 
     public void abrirTOL(View v){
         buscaLocalesCiudad("Toluca");
+        current = "Toluca";
+
     }
 
     public void abrirMTY(View v){
         buscaLocalesCiudad("Monterrey");
+        current = "Monterrey";
+
     }
 
     public void abrirALL(View v){
         buscaLocalesCiudad("All");
+        current = "All";
     }
 
     @Override

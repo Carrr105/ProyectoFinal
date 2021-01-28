@@ -89,6 +89,6 @@ public class AgregarActivity extends AppCompatActivity {
             Intent i = new Intent(this, UserpointsActivity.class);
             startActivity(i);
         }
-        finish();
+        finishActivity(1);
     }
 }
