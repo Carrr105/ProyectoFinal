@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         //Obtener referencia
         auth = FirebaseAuth.getInstance();
 
-        uname =findViewById(R.id.userText);
+        uname =findViewById(R.id.email);
         psw = findViewById(R.id.pswText);
         //db = new DBHelper(this);
     }

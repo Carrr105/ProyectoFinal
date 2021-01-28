@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,7 +22,8 @@ public class AgregarActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private DatabaseReference ref;
 
-    private EditText nombre, calif, rese;
+    private EditText nombre, rese;
+    private RatingBar calif;
     private Spinner dropdownCity, dropdownCategory;
     private CheckBox chBox;
 
@@ -37,7 +39,7 @@ public class AgregarActivity extends AppCompatActivity {
         nombre = findViewById(R.id.ETnombre);
         dropdownCategory = findViewById(R.id.spinnerTipo);
         chBox = findViewById(R.id.checkBox);
-        calif = findViewById(R.id.califET);
+        calif = findViewById(R.id.ratingBar);
         rese = findViewById(R.id.resET);
 
         String[] itemsName = new String[] {"-Selecciona lugar-", "CDMX", "Monterrey", "Guadalajara", "Toluca"};
@@ -62,7 +64,8 @@ public class AgregarActivity extends AppCompatActivity {
         String cityStr = dropdownCity.getSelectedItem().toString();
         String tipoStr = dropdownCategory.getSelectedItem().toString();
         String dis = "no";
-        String caliStr = calif.getText().toString();
+        String caliStr = (calif.getRating()*2)+""; // se multiplica por 2 para que sea calif de 1 a 10
+
 
         if(chBox.isChecked()){
             dis = "si";
