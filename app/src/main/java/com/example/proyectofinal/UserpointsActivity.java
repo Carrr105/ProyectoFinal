@@ -27,12 +27,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class UserpointsActivity extends AppCompatActivity implements Handler.Callback, ListaLocalesFragment.Callback {
+// se implementa el fragmento en el que se da la opcion de editar y borrar
+public class UserpointsActivity extends AppCompatActivity implements Handler.Callback, ListaLocalesFragmentUser.Callback {
 
     private FirebaseAuth auth;
     private DatabaseReference ref;
     private LocalesDP localesDP;
-    private ListaLocalesFragment lista;
+    private ListaLocalesFragmentUser lista;
     ArrayList<LocalesDP> objList;
     private Handler handler;
 
@@ -94,7 +95,7 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
 
     private void tostito(){
         handler = new Handler(Looper.getMainLooper(), this);
-        lista = new ListaLocalesFragment();
+        lista = new ListaLocalesFragmentUser();
         lista.setArray(objList);
         FragmentManager manager = getSupportFragmentManager();
         Fragment f = manager.findFragmentByTag("Fragmento");

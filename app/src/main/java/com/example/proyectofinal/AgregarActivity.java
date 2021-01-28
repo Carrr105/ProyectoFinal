@@ -86,6 +86,7 @@ public class AgregarActivity extends AppCompatActivity {
             ref.child("lugares").child(key).child("resena").child(resKey).setValue(rese.getText().toString());
             ref.child("lugares").child(key).child("ubi").setValue("coordenadas");
             Toast.makeText(this, "Guardado correctamente",Toast.LENGTH_SHORT).show();
+            finish();
         }
 
     }

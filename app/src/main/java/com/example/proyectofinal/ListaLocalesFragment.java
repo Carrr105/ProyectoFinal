@@ -54,6 +54,7 @@ public class ListaLocalesFragment extends Fragment implements View.OnClickListen
             throw new RuntimeException("FALTA IMPLEMENTAR LA INTERFAZ CALLBACK EN ACTIVIDAD QUE ANEXA FRAGMENTO");
         }
     }
+
     public interface Callback{
         public void saludoEnActividad(int pos);
     }
