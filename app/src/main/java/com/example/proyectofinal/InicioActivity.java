@@ -52,8 +52,8 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
 
         saludo = findViewById(R.id.saludo);
         String resultadoLocales = "";
-        saludo.setText("Hola, "+ user.getDisplayName());
-
+        saludo.setText("Hola, "+ user.getDisplayName().substring(0,1).toUpperCase() +
+                user.getDisplayName().substring(1,user.getDisplayName().length()));
 
         FirebaseDatabase db =FirebaseDatabase.getInstance();
         ref = db.getReference();
@@ -151,30 +151,67 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
             }
         });
 
-        ref.child("lugares").orderByChild("ciudad").equalTo(ciudad).addChildEventListener(new ChildEventListener() {
+        if (ciudad != "All") {
+            ref.child("lugares").orderByChild("ciudad").
+                    equalTo(ciudad).addChildEventListener(new ChildEventListener() {
 
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                localesDP = new LocalesDP();
-                localesDP.setCalif(dataSnapshot.child("calif").getValue(String.class));
-                localesDP.setCreador(dataSnapshot.child("creador").getValue(String.class));
-                localesDP.setDisca(dataSnapshot.child("disca").getValue(String.class));
-                localesDP.setNombre(dataSnapshot.child("nombre").getValue(String.class));
-                localesDP.setCiudad(dataSnapshot.child("ciudad").getValue(String.class));
-                localesDP.setTipo(dataSnapshot.child("tipo").getValue(String.class));
-                localesDP.setUbi(dataSnapshot.child("ubi").getValue(String.class));
-                listaLocales.add(localesDP);
-            }
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+                public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                    localesDP = new LocalesDP();
+                    localesDP.setCalif(dataSnapshot.child("calif").getValue(String.class));
+                    localesDP.setCreador(dataSnapshot.child("creador").getValue(String.class));
+                    localesDP.setDisca(dataSnapshot.child("disca").getValue(String.class));
+                    localesDP.setNombre(dataSnapshot.child("nombre").getValue(String.class));
+                    localesDP.setCiudad(dataSnapshot.child("ciudad").getValue(String.class));
+                    localesDP.setTipo(dataSnapshot.child("tipo").getValue(String.class));
+                    localesDP.setUbi(dataSnapshot.child("ubi").getValue(String.class));
+                    listaLocales.add(localesDP);
+                }
 
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                }
+
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                }
 
 
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName){}
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                }
 
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.wtf("TAG","murio");
-            }
-        });
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.wtf("TAG", "murio");
+                }
+            });
+        }
+        else{
+            ref.child("lugares").orderByChild("ciudad").addChildEventListener(new ChildEventListener() {
+
+                public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                    localesDP = new LocalesDP();
+                    localesDP.setCalif(dataSnapshot.child("calif").getValue(String.class));
+                    localesDP.setCreador(dataSnapshot.child("creador").getValue(String.class));
+                    localesDP.setDisca(dataSnapshot.child("disca").getValue(String.class));
+                    localesDP.setNombre(dataSnapshot.child("nombre").getValue(String.class));
+                    localesDP.setCiudad(dataSnapshot.child("ciudad").getValue(String.class));
+                    localesDP.setTipo(dataSnapshot.child("tipo").getValue(String.class));
+                    localesDP.setUbi(dataSnapshot.child("ubi").getValue(String.class));
+                    listaLocales.add(localesDP);
+                }
+
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                }
+
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                }
+
+
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                }
+
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.wtf("TAG", "murio");
+                }
+            });
+        }
     }
 
     private void ponRecycler(){
@@ -218,6 +255,10 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
 
     public void abrirMTY(View v){
         buscaLocalesCiudad("Monterrey");
+    }
+
+    public void abrirALL(View v){
+        buscaLocalesCiudad("All");
     }
 
     @Override
