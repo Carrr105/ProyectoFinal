@@ -14,6 +14,7 @@
         <activity android:name=".ciudadGeneralActivity" />
         <activity android:name=".AgregarActivity" />
         <activity android:name=".InicioActivity" />
+        <activity android:name=".LocalesDetailActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

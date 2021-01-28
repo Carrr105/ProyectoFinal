@@ -15,7 +15,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,7 +34,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
     private LocalesDP localesDP;
     private ArrayList<LocalesDP> listaLocales;
     private ListaLocalesFragment lista;
-    private LocalesFragment local;
+    private LocalesDetailActivity local;
     private String cityUser, uID;
     private Handler handler;
     private TextView saludo;
@@ -228,20 +227,15 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
 
     @Override
     public void saludoEnActividad(int pos) {
-        handler = new Handler(Looper.getMainLooper(), this);
-        local = new LocalesFragment();
-        local.setArray(listaLocales, pos);
-        FragmentManager manager = getSupportFragmentManager();
-        Fragment f = manager.findFragmentByTag("Fragmento");
-        FragmentTransaction transaction =  manager.beginTransaction();
-        if(local==f)
-            return;
-
-        if(f!=null){
-            transaction.remove(f);
-        }
-        transaction.add(R.id.contenedorMain, local, "Fragmento");
-        transaction.commit();
+        local = new LocalesDetailActivity();
+        Intent i = new Intent(this, LocalesDetailActivity.class);
+        LocalesDP local = listaLocales.get(pos);
+        i.putExtra("nombre", local.getNombre());
+        i.putExtra("tipo", local.getTipo());
+        i.putExtra("ciudad", local.getCiudad());
+        i.putExtra("calif", local.getCalif());
+        i.putExtra("disca", local.getDisca());
+        startActivity(i);
         //Toast.makeText(this, "Local: "+listaLocales.get(pos).toString(), Toast.LENGTH_LONG).show();
     }
 }
