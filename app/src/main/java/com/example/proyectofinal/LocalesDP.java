@@ -1,7 +1,15 @@
 package com.example.proyectofinal;
 
 public class LocalesDP {
-    private String calif, ciudad, creador, disca, nombre, tipo, ubi;
+    private String calif, ciudad, creador, disca, nombre, tipo, ubi,resena;
+
+    public String getResena() {
+        return resena;
+    }
+
+    public void setResena(String calif) {
+        this.resena = calif;
+    }
 
     public String getCalif() {
         return calif;

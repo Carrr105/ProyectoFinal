@@ -35,6 +35,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
     private LocalesDP localesDP;
     private ArrayList<LocalesDP> listaLocales;
     private ListaLocalesFragment lista;
+    private LocalesFragment local;
     private String cityUser, uID;
     private Handler handler;
     private TextView saludo;
@@ -135,6 +136,47 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         });
     }
 
+    private void buscaLocalesCiudad(String ciudad){
+        listaLocales = new ArrayList<>();
+        Log.wtf("buscarLocales()",ciudad);
+        FirebaseUser user = auth.getInstance().getCurrentUser();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.wtf("buscaLocales()", listaLocales.toString());
+                ponRecycler();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ref.child("lugares").orderByChild("ciudad").equalTo(ciudad).addChildEventListener(new ChildEventListener() {
+
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                localesDP = new LocalesDP();
+                localesDP.setCalif(dataSnapshot.child("calif").getValue(String.class));
+                localesDP.setCreador(dataSnapshot.child("creador").getValue(String.class));
+                localesDP.setDisca(dataSnapshot.child("disca").getValue(String.class));
+                localesDP.setNombre(dataSnapshot.child("nombre").getValue(String.class));
+                localesDP.setCiudad(dataSnapshot.child("ciudad").getValue(String.class));
+                localesDP.setTipo(dataSnapshot.child("tipo").getValue(String.class));
+                localesDP.setUbi(dataSnapshot.child("ubi").getValue(String.class));
+                listaLocales.add(localesDP);
+            }
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+
+
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName){}
+
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.wtf("TAG","murio");
+            }
+        });
+    }
 
     private void ponRecycler(){
         Log.wtf("ponRecycler()","Poniendo ese");
@@ -163,39 +205,20 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         buscaLocales();
     }
 
-    /*public void refresh(View v){
-        String resultadoLocales = "";
-        Vector<String> resultado = db.buscarLocales(cityStr);
-        for(int i=0;i+1<=resultado.size();i++){
-            resultadoLocales = resultadoLocales+resultado.get(i)+"\n";
-        }
-        locales = findViewById(R.id.locales);
-        locales.setText(resultadoLocales);
-    }
-*/
     public void abrirCDMX(View v){
-        /*==Intent i = new Intent(this, ciudadGeneralActivity.class);
-        i.putExtra("city", "CDMX");
-        startActivity(i);*/
-        Log.wtf("CIUDADBTN",cityUser);
+        buscaLocalesCiudad("CDMX");
     }
 
     public void abrirGDL(View v){
-        Intent i = new Intent(this, ciudadGeneralActivity.class);
-        i.putExtra("city", "Guadalajara");
-        startActivity(i);
+        buscaLocalesCiudad("Guadalajara");
     }
 
     public void abrirTOL(View v){
-        Intent i = new Intent(this, ciudadGeneralActivity.class);
-        i.putExtra("city", "Toluca");
-        startActivity(i);
+        buscaLocalesCiudad("Toluca");
     }
 
     public void abrirMTY(View v){
-        Intent i = new Intent(this, ciudadGeneralActivity.class);
-        i.putExtra("city", "Monterrey");
-        startActivity(i);
+        buscaLocalesCiudad("Monterrey");
     }
 
     @Override
@@ -205,6 +228,20 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
 
     @Override
     public void saludoEnActividad(int pos) {
-        Toast.makeText(this, "Local: "+listaLocales.get(pos).toString(), Toast.LENGTH_LONG).show();
+        handler = new Handler(Looper.getMainLooper(), this);
+        local = new LocalesFragment();
+        local.setArray(listaLocales, pos);
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment f = manager.findFragmentByTag("Fragmento");
+        FragmentTransaction transaction =  manager.beginTransaction();
+        if(local==f)
+            return;
+
+        if(f!=null){
+            transaction.remove(f);
+        }
+        transaction.add(R.id.contenedorMain, local, "Fragmento");
+        transaction.commit();
+        //Toast.makeText(this, "Local: "+listaLocales.get(pos).toString(), Toast.LENGTH_LONG).show();
     }
 }

@@ -8,12 +8,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contenedorMain"
-        android:layout_width="413dp"
-        android:layout_height="532dp"
-        android:layout_marginTop="65dp"
+        android:layout_width="411dp"
+        android:layout_height="469dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
