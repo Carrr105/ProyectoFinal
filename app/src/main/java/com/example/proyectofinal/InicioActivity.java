@@ -52,7 +52,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
 
         saludo = findViewById(R.id.saludo);
         String resultadoLocales = "";
-        saludo.setText("Hola, "+user.getDisplayName());
+        saludo.setText("Hola, "+ user.getDisplayName());
 
 
         FirebaseDatabase db =FirebaseDatabase.getInstance();
