@@ -1,5 +1,6 @@
 package com.example.proyectofinal;
 
+import android.content.Context;
 import android.content.Intent;
 import android.icu.text.Transliterator;
 import android.media.Image;
@@ -29,7 +30,7 @@ public class LocalesUserAdapter extends RecyclerView.Adapter<LocalesUserAdapter.
     public class LocalesUserViewHolder extends RecyclerView.ViewHolder{
 
         public TextView texto1, texto2;
-        public ImageButton b;
+        public ImageButton b, bEdit;
 
         public LocalesUserViewHolder(@NonNull View itemView){
             super(itemView);
@@ -37,6 +38,7 @@ public class LocalesUserAdapter extends RecyclerView.Adapter<LocalesUserAdapter.
             texto1 = itemView.findViewById(R.id.nameTV);
             texto2 = itemView.findViewById(R.id.tipoTV);
             b = itemView.findViewById(R.id.del);
+            bEdit = itemView.findViewById(R.id.edit);
         }
     }
 
@@ -44,12 +46,14 @@ public class LocalesUserAdapter extends RecyclerView.Adapter<LocalesUserAdapter.
     private View.OnClickListener listener;
     private PositionHolder positionHolder;
     private View v;
+    private Context c;
 
     public LocalesUserAdapter(ArrayList<LocalesDP> perritos, View.OnClickListener listener,
-                              PositionHolder positionHolder){
+                              PositionHolder positionHolder, Context c){
         this.locales = perritos;
         this.listener = listener;
         this.positionHolder = positionHolder;
+        this.c = c;
     }
 
 
@@ -77,14 +81,24 @@ public class LocalesUserAdapter extends RecyclerView.Adapter<LocalesUserAdapter.
         holder.b.setOnClickListener(v -> {
             positionHolder.setPosition(position);
             notifyDataSetChanged();
-            // Toast.makeText(v.getContext(), position+"", Toast.LENGTH_SHORT).show();
             delete(position);
-            update();
+            Toast.makeText(v.getContext(), "Registro eliminado", Toast.LENGTH_SHORT).show();
         });
+
+        holder.bEdit.setOnClickListener(v -> {
+            positionHolder.setPosition(position);
+            notifyDataSetChanged();
+            update(position);
+        });
+
     }
 
-    public void update(){
+    public void update(Integer position){
 
+        Intent i = new Intent (c, EditActivity.class);
+        Log.wtf("idAntes", locales.get(position).getId());
+        i.putExtra("id", locales.get(position).getId());
+        c.startActivity(i);
     }
 
     public void delete(Integer position){

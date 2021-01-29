@@ -45,7 +45,7 @@ public class ListaLocalesFragmentUser extends Fragment implements View.OnClickLi
 
         h = new PositionHolder(selectedPosition);
 
-        LocalesUserAdapter adapter =new LocalesUserAdapter(listaLocales, this, h);
+        LocalesUserAdapter adapter =new LocalesUserAdapter(listaLocales, this, h, getContext());
         LinearLayoutManager llm=new LinearLayoutManager(v.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);

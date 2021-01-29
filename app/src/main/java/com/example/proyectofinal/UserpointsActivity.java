@@ -3,11 +3,9 @@ package com.example.proyectofinal;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +13,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 // se implementa el fragmento en el que se da la opcion de editar y borrar
 public class UserpointsActivity extends AppCompatActivity implements Handler.Callback, ListaLocalesFragmentUser.Callback {
@@ -107,6 +100,13 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
     public void agregarLocal(View v){
         //finish();
         Intent i = new Intent(this, AgregarActivity.class);
+        startActivityForResult(i, 1);
+    }
+
+    public void editarLocal(View v){
+        //finish();
+        Intent i = new Intent(this, EditActivity.class);
+
         startActivityForResult(i, 1);
     }
 
