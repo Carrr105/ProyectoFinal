@@ -42,10 +42,12 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
     private TextView locales;
     private String cityStr = "";
     private String current = "";
+    private String nameUser = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
+
 
         auth = FirebaseAuth.getInstance();
         //Log.wtf("HOLA", "holaaa");
@@ -54,8 +56,8 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         saludo = findViewById(R.id.saludo);
         infoCiudad = findViewById(R.id.infoCiudad);
         String resultadoLocales = "";
-        saludo.setText("Hola, "+ user.getDisplayName().substring(0,1).toUpperCase() +
-                user.getDisplayName().substring(1,user.getDisplayName().length()));
+       /* saludo.setText("Hola, "+ user.getDisplayName().substring(0,1).toUpperCase() +
+                user.getDisplayName().substring(1,user.getDisplayName().length())); */
 
 
 
@@ -63,7 +65,10 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         ref = db.getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 buscaLocales();
+                saludo.setText("Hola, "+ nameUser.substring(0,1).toUpperCase() +
+                        nameUser.substring(1,nameUser.length()));
             }
 
             @Override
@@ -77,6 +82,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                     String key=childSnapshot.getKey();
                     cityUser = dataSnapshot.child("city").getValue(String.class);
+                    nameUser = dataSnapshot.child("uname").getValue(String.class);
                     Log.wtf("CIUDADFUNC",cityUser);
                 }
                 infoCiudad.setText("Mostrando lugares en " + cityUser);

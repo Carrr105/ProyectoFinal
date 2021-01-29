@@ -64,6 +64,7 @@ public class RegistroActivity extends AppCompatActivity {
                                 //Si se pudo hacer registro
                                 Toast.makeText(RegistroActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
                                 registrarUsuarioDB(correoStr,pass1,unameStr,cityStr);
+
                             }else{
                                 //No se registro
                                 Toast.makeText(RegistroActivity.this,
@@ -114,7 +115,6 @@ public class RegistroActivity extends AppCompatActivity {
         ref.child("users").child(key).child("city").setValue(cityString);
         ref.child("users").child(key).child("uname").setValue(unameString);
         ref.child("users").child(key).child("uID").setValue(user.getUid());
-
         Intent i = new Intent(this, InicioActivity.class);
         startActivity(i);
     }
