@@ -82,6 +82,7 @@ public class AgregarActivity extends AppCompatActivity {
             ref.child("lugares").child(key).child("ciudad").setValue(cityStr);
             ref.child("lugares").child(key).child("creador").setValue(user.getUid());
             ref.child("lugares").child(key).child("disca").setValue(dis);
+            ref.child("lugares").child(key).child("id").setValue(key);
             String resKey = ref.child("lugares").child(key).child("resena").push().getKey();
             ref.child("lugares").child(key).child("resena").child(resKey).setValue(rese.getText().toString());
             ref.child("lugares").child(key).child("ubi").setValue("coordenadas");

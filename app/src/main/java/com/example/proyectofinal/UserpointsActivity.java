@@ -3,9 +3,11 @@ package com.example.proyectofinal;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // se implementa el fragmento en el que se da la opcion de editar y borrar
 public class UserpointsActivity extends AppCompatActivity implements Handler.Callback, ListaLocalesFragmentUser.Callback {
@@ -37,11 +42,18 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
     private ListaLocalesFragmentUser lista;
     ArrayList<LocalesDP> objList;
     private Handler handler;
+    private Integer selectedPosition;
+    private LocalesDetailActivity local;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userpoints);
+
+
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -74,7 +86,8 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
                     localesDP.setCiudad(dataSnapshot.child("ciudad").getValue(String.class));
                     localesDP.setTipo(dataSnapshot.child("tipo").getValue(String.class));
                     localesDP.setUbi(dataSnapshot.child("ubi").getValue(String.class));
-                    objList.add(localesDP);
+                    localesDP.setId(dataSnapshot.child("id").getValue(String.class));
+                objList.add(localesDP);
             }
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
 
@@ -87,7 +100,9 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
                 Log.wtf("TAG","murio");
             }
         });
+
     }
+
 
     public void agregarLocal(View v){
         //finish();
@@ -115,6 +130,14 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
         finish();
     }
 
+/*
+    @Override
+    public void saludoEnActividad(int pos) {
+        LocalesDP local = listaLocales.get(pos);
+        Toast.makeText(this, "Local: "+listaLocales.get(pos).toString(), Toast.LENGTH_LONG).show();
+    }
+
+ */
 /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -154,6 +177,14 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
 
     @Override
     public void saludoEnActividad(int pos) {
-        Toast.makeText(this, "HOLA "+objList.get(pos).toString(), Toast.LENGTH_LONG).show();
+        local = new LocalesDetailActivity();
+        Intent i = new Intent(this, LocalesDetailActivity.class);
+        LocalesDP local = objList.get(pos);
+        i.putExtra("nombre", local.getNombre());
+        i.putExtra("tipo", local.getTipo());
+        i.putExtra("ciudad", local.getCiudad());
+        i.putExtra("calif", local.getCalif());
+        i.putExtra("disca", local.getDisca());
+        startActivity(i);
     }
 }

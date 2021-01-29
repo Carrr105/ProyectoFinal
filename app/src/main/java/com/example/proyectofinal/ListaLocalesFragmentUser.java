@@ -22,6 +22,10 @@ public class ListaLocalesFragmentUser extends Fragment implements View.OnClickLi
     private ArrayList<LocalesDP> listaLocales;
     private LocalesDP local;
     private RecyclerView recyclerView;
+    private PositionHolder h;
+    private Integer selectedPosition;
+
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,12 @@ public class ListaLocalesFragmentUser extends Fragment implements View.OnClickLi
         View v = inflater.inflate(R.layout.fragment_lista_locales, container, false);
 
         recyclerView = v.findViewById(R.id.recy);
-        LocalesUserAdapter adapter =new LocalesUserAdapter(listaLocales, this);
+
+        selectedPosition = 0;
+
+        h = new PositionHolder(selectedPosition);
+
+        LocalesUserAdapter adapter =new LocalesUserAdapter(listaLocales, this, h);
         LinearLayoutManager llm=new LinearLayoutManager(v.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
@@ -63,5 +72,6 @@ public class ListaLocalesFragmentUser extends Fragment implements View.OnClickLi
         int pos = recyclerView.getChildLayoutPosition(v);
         observador.saludoEnActividad(pos);
     }
+
 
 }
