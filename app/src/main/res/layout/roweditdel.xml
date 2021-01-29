@@ -29,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre:"
+                android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/nameTV"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -38,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:text="TextView"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButton7"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,8 +48,9 @@
                 android:id="@+id/nameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:text="TextView"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="Tipo:"
+                android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tipoTV"
                 app:layout_constraintEnd_toStartOf="@+id/tipoTV" />
 

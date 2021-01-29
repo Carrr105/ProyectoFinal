@@ -37,6 +37,7 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
     private ListaLocalesFragmentUser lista;
     ArrayList<LocalesDP> objList;
     private Handler handler;
+    private LocalesDetailActivity local;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +155,14 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
 
     @Override
     public void saludoEnActividad(int pos) {
-        Toast.makeText(this, "HOLA "+objList.get(pos).toString(), Toast.LENGTH_LONG).show();
+        local = new LocalesDetailActivity();
+        Intent i = new Intent(this, LocalesDetailActivity.class);
+        LocalesDP local = objList.get(pos);
+        i.putExtra("nombre", local.getNombre());
+        i.putExtra("tipo", local.getTipo());
+        i.putExtra("ciudad", local.getCiudad());
+        i.putExtra("calif", local.getCalif());
+        i.putExtra("disca", local.getDisca());
+        startActivity(i);
     }
 }
