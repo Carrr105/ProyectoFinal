@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -78,8 +79,21 @@ public class LocalesUserAdapter extends RecyclerView.Adapter<LocalesUserAdapter.
             public void onClick(View v) {
                 delete(position);
                 Toast.makeText(v.getContext(), "Registro eliminado", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(c, UserpointsActivity.class);
-                ((UserpointsActivity) c).startActivity(intent);
+
+
+                //Intent intent = new Intent(c, UserpointsActivity.class);
+                //((UserpointsActivity) c).startActivity(intent);
+
+             //   FragmentTransaction tr =
+             //   tr.replace(R.id.contenedor, ListaLocalesFragmentUser);
+             //   tr.commit();
+
+                locales.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, locales.size());
+
+             //   notifyItemRemoved(position);
+             //   notifyItemRangeChanged(position, getItemCount() - position);
             }
         });
 
