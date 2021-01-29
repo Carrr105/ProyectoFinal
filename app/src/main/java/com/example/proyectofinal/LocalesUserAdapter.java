@@ -57,15 +57,11 @@ public class LocalesUserAdapter extends RecyclerView.Adapter<LocalesUserAdapter.
     }
 
 
-
-
-
     @NonNull
     @Override
     public LocalesUserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v =(View) LayoutInflater.from(parent.getContext()).inflate(R.layout.roweditdel, parent,false);
         v.setOnClickListener(listener);
-
 
         LocalesUserViewHolder avh = new LocalesUserViewHolder(v);
         return avh;
@@ -77,19 +73,46 @@ public class LocalesUserAdapter extends RecyclerView.Adapter<LocalesUserAdapter.
         holder.texto1.setText(str.getNombre());
         holder.texto2.setText(str.getTipo());
 
+        holder.b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete(position);
+                Toast.makeText(v.getContext(), "Registro eliminado", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(c, UserpointsActivity.class);
+                ((UserpointsActivity) c).startActivity(intent);
+            }
+        });
 
+        holder.bEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notifyDataSetChanged();
+                update(position);
+            }
+        });
+
+        /*
         holder.b.setOnClickListener(v -> {
-            positionHolder.setPosition(position);
-            notifyDataSetChanged();
+            //positionHolder.setPosition(position);
+            //notifyDataSetChanged();
             delete(position);
+
+            //notifyDataSetChanged();
+            //notifyItemRemoved(position);
+            //notifyDataSetChanged();
             Toast.makeText(v.getContext(), "Registro eliminado", Toast.LENGTH_SHORT).show();
         });
 
+         */
+
+        /*
         holder.bEdit.setOnClickListener(v -> {
             positionHolder.setPosition(position);
             notifyDataSetChanged();
             update(position);
         });
+
+         */
 
     }
 
@@ -120,6 +143,7 @@ public class LocalesUserAdapter extends RecyclerView.Adapter<LocalesUserAdapter.
 
             }
         });
+        notifyDataSetChanged();
     }
 
 
