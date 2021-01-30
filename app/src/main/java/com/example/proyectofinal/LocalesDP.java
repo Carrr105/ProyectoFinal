@@ -1,7 +1,15 @@
 package com.example.proyectofinal;
 
 public class LocalesDP {
-    private String calif, ciudad, creador, disca, nombre, tipo, id, ubi,resena;
+    private String uID, calif, ciudad, creador, disca, nombre, tipo, id, ubi,resena;
+
+    public String getuID() {
+        return uID;
+    }
+
+    public void setuID(String calif) {
+        this.uID = calif;
+    }
 
     public String getResena() {
         return resena;
@@ -78,6 +86,6 @@ public class LocalesDP {
 
     //no incluye id
     public String toString(){
-        return calif+"$"+ciudad+"$"+ creador+"$"+ disca+"$"+ nombre+"$"+ tipo+"$"+ ubi;
+        return uID+"$"+calif+"$"+ciudad+"$"+ creador+"$"+ disca+"$"+ nombre+"$"+ tipo+"$"+ ubi;
     }
 }

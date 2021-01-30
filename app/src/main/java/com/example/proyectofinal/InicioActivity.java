@@ -15,6 +15,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -83,7 +84,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
                     String key=childSnapshot.getKey();
                     cityUser = dataSnapshot.child("city").getValue(String.class);
                     nameUser = dataSnapshot.child("uname").getValue(String.class);
-                    Log.wtf("CIUDADFUNC",cityUser);
+                    //Log.wtf("CIUDADFUNC",cityUser);
                 }
                 infoCiudad.setText("Mostrando lugares en " + cityUser);
                 current = cityUser;
@@ -105,9 +106,14 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        buscaLocales();
+    }
+
     private void buscaLocales(){
         listaLocales = new ArrayList<>();
-        Log.wtf("buscarLocales()",cityUser);
         FirebaseUser user = auth.getInstance().getCurrentUser();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,6 +131,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
 
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 localesDP = new LocalesDP();
+                localesDP.setuID(dataSnapshot.getKey());
                 localesDP.setCalif(dataSnapshot.child("calif").getValue(String.class));
                 localesDP.setCreador(dataSnapshot.child("creador").getValue(String.class));
                 localesDP.setDisca(dataSnapshot.child("disca").getValue(String.class));
@@ -172,6 +179,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
 
                 public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                     localesDP = new LocalesDP();
+                    localesDP.setuID(dataSnapshot.getKey());
                     localesDP.setCalif(dataSnapshot.child("calif").getValue(String.class));
                     localesDP.setCreador(dataSnapshot.child("creador").getValue(String.class));
                     localesDP.setDisca(dataSnapshot.child("disca").getValue(String.class));
@@ -203,6 +211,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
 
                 public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                     localesDP = new LocalesDP();
+                    localesDP.setuID(dataSnapshot.getKey());
                     localesDP.setCalif(dataSnapshot.child("calif").getValue(String.class));
                     localesDP.setCreador(dataSnapshot.child("creador").getValue(String.class));
                     localesDP.setDisca(dataSnapshot.child("disca").getValue(String.class));
@@ -231,7 +240,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
     }
 
     private void ponRecycler(){
-        Log.wtf("ponRecycler()","Poniendo ese");
+        //Log.wtf("ponRecycler()","Poniendo ese");
         handler = new Handler(Looper.getMainLooper(), this);
         lista = new ListaLocalesFragment();
         lista.setArray(listaLocales);
@@ -312,11 +321,14 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         local = new LocalesDetailActivity();
         Intent i = new Intent(this, LocalesDetailActivity.class);
         LocalesDP local = listaLocales.get(pos);
+        //Toast.makeText(this, "Local: "+listaLocales.get(pos).toString(), Toast.LENGTH_LONG).show();
+        i.putExtra("uid", local.getuID());
         i.putExtra("nombre", local.getNombre());
         i.putExtra("tipo", local.getTipo());
         i.putExtra("ciudad", local.getCiudad());
         i.putExtra("calif", local.getCalif());
         i.putExtra("disca", local.getDisca());
+        i.putExtra("ubi", local.getUbi());
         startActivity(i);
         //Toast.makeText(this, "Local: "+listaLocales.get(pos).toString(), Toast.LENGTH_LONG).show();
     }
