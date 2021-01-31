@@ -144,7 +144,7 @@ public class LocalesDetailActivity extends AppCompatActivity {
                 reseCount = dataSnapshot.child("resena").getChildrenCount();
 
                 Map<String, Object> td = (HashMap<String,Object>) dataSnapshot.child("resena").getValue();
-                Object[] hola = td.values().toArray();
+                Object[] hola = td.values().toArray();//Para obtener solo los valores de las reseñas
 
                 for(int i = 0;i<=reseCount-1;i++){
                     resenasDP = new ResenasDP();

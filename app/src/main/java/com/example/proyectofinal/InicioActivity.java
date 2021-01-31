@@ -257,7 +257,10 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
             return;
 
         if(f!=null){
-            transaction.remove(f);
+            //transaction.remove(f);
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
         }
         transaction.add(R.id.contenedorMain, lista, "Fragmento");
         transaction.commit();

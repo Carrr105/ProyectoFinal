@@ -109,6 +109,7 @@ public class RegistroActivity extends AppCompatActivity {
                     }
                 });
 
+        user.sendEmailVerification();
         FirebaseDatabase db =FirebaseDatabase.getInstance();
         ref = db.getReference();
         String key = ref.child("users").push().getKey();

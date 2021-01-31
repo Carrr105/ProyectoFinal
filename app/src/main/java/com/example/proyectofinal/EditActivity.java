@@ -10,10 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +37,9 @@ public class EditActivity extends AppCompatActivity {
     private Spinner dropdownCity, dropdownCategory;
     private CheckBox chBox;
     private String idStr;
+    private ImageButton ubiB;
+    private TextView ubiTV;
+    private double latitudMap=0, longitudMap=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +62,19 @@ public class EditActivity extends AppCompatActivity {
         chBox = findViewById(R.id.checkBox);
         calif = findViewById(R.id.ratingBar);
         rese = findViewById(R.id.resET);
+        ubiB = findViewById(R.id.imageButton4);
+        ubiTV = findViewById(R.id.textView8);
 
-
-        // no se editan comentarios, al menos no por ahora
+        // no se editan comentarios
         ViewGroup layout = (ViewGroup) rese.getParent();
         layout.removeView(rese);
+        //No se edita ubi
+        layout = (ViewGroup) ubiB.getParent();
+        layout.removeView(ubiB);
+        layout = (ViewGroup) ubiTV.getParent();
+        layout.removeView(ubiTV);
+        //No se puede editar la calificacion  ya que es info de la comunidad
+        calif.setIsIndicator(true);
 
         String isDisca="no";
 
@@ -135,7 +149,7 @@ public class EditActivity extends AppCompatActivity {
         }
         else{
             ref.child("lugares").child(idStr).child("nombre").setValue(nomStr);
-            ref.child("lugares").child(idStr).child("calif").setValue(caliStr);
+            //ref.child("lugares").child(idStr).child("calif").setValue(caliStr);
             ref.child("lugares").child(idStr).child("tipo").setValue(tipoStr);
             ref.child("lugares").child(idStr).child("ciudad").setValue(cityStr);
             ref.child("lugares").child(idStr).child("creador").setValue(user.getUid());
