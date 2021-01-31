@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -87,7 +88,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
                     //Log.wtf("CIUDADFUNC",cityUser);
                 }
                 infoCiudad.setText("Mostrando lugares en " + cityUser);
-                current = cityUser;
+                current = "cityUser";
             }
 
             @Override
@@ -106,11 +107,16 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
         });
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment f = manager.findFragmentByTag("Fragmento");
+        FragmentTransaction transaction =  manager.beginTransaction();
+        transaction.remove(f);
+        transaction.commit();
         buscaLocales();
-    }
+    }*/
 
     private void buscaLocales(){
         listaLocales = new ArrayList<>();
@@ -260,25 +266,33 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
     public void misLocales(View v){
         Intent i = new Intent(this, UserpointsActivity.class);
         startActivity(i);
+        finish();
     }
 
     public void refresh(View v){
         if (current == "cityUser"){
             buscaLocales();
+
+            Snackbar.make(v,"Refrescando locales", Snackbar.LENGTH_SHORT).show();
         }
         else if (current == "CDMX"){
             buscaLocalesCiudad("CDMX");
+            Snackbar.make(v,"Refrescando locales", Snackbar.LENGTH_SHORT).show();
         }
         else if (current == "Monterrey"){
             buscaLocalesCiudad("Monterrey");
+            Snackbar.make(v,"Refrescando locales", Snackbar.LENGTH_SHORT).show();
         }
         else if (current == "Guadalajara"){
             buscaLocalesCiudad("Guadalajara");
+            Snackbar.make(v,"Refrescando locales", Snackbar.LENGTH_SHORT).show();
         }
         else if (current == "Toluca"){
             buscaLocalesCiudad("Toluca");
+            Snackbar.make(v,"Refrescando locales", Snackbar.LENGTH_SHORT).show();
         }
         else if (current == "All"){
+            buscaLocales();
             buscaLocalesCiudad("All");
         }
     }
