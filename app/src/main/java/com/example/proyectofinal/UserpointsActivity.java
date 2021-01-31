@@ -74,13 +74,14 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
                     localesDP = new LocalesDP();
                     localesDP.setCalif(dataSnapshot.child("calif").getValue(String.class));
                     localesDP.setCreador(userID);
+                    localesDP.setuID(dataSnapshot.getKey());
                     localesDP.setDisca(dataSnapshot.child("disca").getValue(String.class));
                     localesDP.setNombre(dataSnapshot.child("nombre").getValue(String.class));
                     localesDP.setCiudad(dataSnapshot.child("ciudad").getValue(String.class));
                     localesDP.setTipo(dataSnapshot.child("tipo").getValue(String.class));
                     localesDP.setUbi(dataSnapshot.child("ubi").getValue(String.class));
                     localesDP.setId(dataSnapshot.child("id").getValue(String.class));
-                objList.add(localesDP);
+                    objList.add(localesDP);
             }
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
 
@@ -180,11 +181,13 @@ public class UserpointsActivity extends AppCompatActivity implements Handler.Cal
         local = new LocalesDetailActivity();
         Intent i = new Intent(this, LocalesDetailActivity.class);
         LocalesDP local = objList.get(pos);
+        i.putExtra("uid", local.getuID());
         i.putExtra("nombre", local.getNombre());
         i.putExtra("tipo", local.getTipo());
         i.putExtra("ciudad", local.getCiudad());
         i.putExtra("calif", local.getCalif());
         i.putExtra("disca", local.getDisca());
+        i.putExtra("ubi", local.getUbi());
         startActivity(i);
     }
 }
