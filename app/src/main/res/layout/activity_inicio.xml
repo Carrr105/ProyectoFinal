@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_main_menu"
     tools:context=".InicioActivity">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contenedorMain"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="46dp"
-        android:layout_marginBottom="46dp"
-        app:layout_constraintBottom_toBottomOf="@+id/all"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton2">
@@ -26,91 +27,35 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="16dp"
         android:text="Hola, "
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:onClick="misLocales"
-        android:text="Mis Locales"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_width="87dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="9dp"
+        android:background="#00FFFFFF"
         android:onClick="refresh"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton7"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_popup_sync" />
+        app:srcCompat="@drawable/recarga" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="10dp"
-        android:onClick="abrirCDMX"
-        android:text="CDMX"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/all" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="9dp"
-        android:onClick="abrirMTY"
-        android:text="Monterrey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="67dp"
-        android:onClick="abrirGDL"
-        android:text="Guadalajara"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="9dp"
-        android:onClick="abrirTOL"
-        android:text="Toluca"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="@+id/button5"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
-
-    <Button
-        android:id="@+id/all"
-        android:layout_width="198dp"
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="146dp"
         android:layout_height="40dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#F3EEEE"
+        android:layout_marginBottom="38dp"
+        android:background="#00FFFFFF"
         android:onClick="abrirALL"
-        android:text="Todos los lugares"
-        app:iconTint="#C88585"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/todoslocales" />
 
     <TextView
         android:id="@+id/infoCiudad"
@@ -120,4 +65,68 @@
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saludo" />
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="163dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="6dp"
+        android:background="#00FFFFFF"
+        android:onClick="misLocales"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mis_locales" />
+
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="129dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="4dp"
+        android:background="#00FFFFFF"
+        android:onClick="abrirCDMX"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/cdmx" />
+
+    <ImageButton
+        android:id="@+id/imageButton11"
+        android:layout_width="129dp"
+        android:layout_height="76dp"
+        android:layout_marginEnd="3dp"
+        android:background="#00FFFFFF"
+        android:onClick="abrirGDL"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/guada" />
+
+    <ImageButton
+        android:id="@+id/imageButton10"
+        android:layout_width="129dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00FFFFFF"
+        android:onClick="abrirMTY"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/monte" />
+
+    <ImageButton
+        android:id="@+id/imageButton12"
+        android:layout_width="129dp"
+        android:layout_height="76dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="1dp"
+        android:background="#00FFFFFF"
+        android:onClick="abrirTOL"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/tol" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
