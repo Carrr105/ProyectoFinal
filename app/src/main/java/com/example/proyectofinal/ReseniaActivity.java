@@ -2,6 +2,7 @@ package com.example.proyectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -56,6 +57,9 @@ public class ReseniaActivity extends AppCompatActivity {
             ref.child("lugares").child(lugerKey).child("calif").setValue(String.format("%.02f", newCali));
 
             Snackbar.make(v,"Reseña guardada",Snackbar.LENGTH_SHORT).show();
+
+            setResult(Activity.RESULT_OK);
+            //finishActivity(1);
             finish();
         }
     }
