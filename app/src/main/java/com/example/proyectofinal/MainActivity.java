@@ -3,7 +3,9 @@ package com.example.proyectofinal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +23,8 @@ import java.util.StringTokenizer;
 public class MainActivity extends AppCompatActivity {
     private EditText uname, psw;
     private FirebaseAuth auth;
+    SharedPreferences sharedpreferences;
+    int autoSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
         uname =findViewById(R.id.email);
         psw = findViewById(R.id.pswText);
         //db = new DBHelper(this);
+
+        //"autoLogin" is a unique string to identify the instance of this shared preference
+        sharedpreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+        int j = sharedpreferences.getInt("key", 0);
+        //Default is 0 so autologin is disabled
+        if(j > 0){
+            Intent activity = new Intent(getApplicationContext(), InicioActivity.class);
+            startActivity(activity);
+        }
     }
 
     public void bRegistro(View v){
@@ -81,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 Toast.makeText(MainActivity.this, "LogIn exitoso", Toast.LENGTH_SHORT).show();
+                                autoSave = 1;
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.putInt("key", autoSave);
+                                editor.apply();
                                 Intent i = new Intent(MainActivity.this, InicioActivity.class);
                                 startActivity(i);
                             }else {
@@ -90,5 +107,24 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+
+        /*
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+
+         */
+
+      //  REGRESAR A MENU DEL TELEFONO
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+
     }
 }
