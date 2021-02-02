@@ -292,7 +292,7 @@ public class InicioActivity extends AppCompatActivity implements Handler.Callbac
             Snackbar.make(v,"Refrescando locales", Snackbar.LENGTH_SHORT).show();
         }
         else if (current == "All"){
-            buscaLocales();
+           // buscaLocales();
             buscaLocalesCiudad("All");
         }
     }
